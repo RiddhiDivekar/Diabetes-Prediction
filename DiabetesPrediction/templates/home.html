@@ -1,0 +1,87 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <style type="text/css">
+    body {
+      background-image: url("{% static 'DiabetesPrediction/images/img.jpg' %}");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-attachment: fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+      background-color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .navbar a {
+      color: black;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .navbar a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      color: white;
+      text-align: center;
+      padding-top: 20vh;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: bold;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    input[type=submit] {
+      background-color: #4dc3ff;
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type=submit]:hover {
+      background-color: #0086b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    {% if user.is_authenticated %}
+      <span style="color:black; margin-right: 10px;">Hi, {{ user.username }}</span>
+      <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'signup' %}">Signup</a>
+    {% endif %}
+  </div>
+
+  <div class="container">
+    <h1>WELCOME TO DIABETES PREDICTION SYSTEM</h1>
+    <form action="{% url 'bmi' %}">
+      <input type="submit" value="Let's get started">
+    </form>
+  </div>
+</body>
+</html>

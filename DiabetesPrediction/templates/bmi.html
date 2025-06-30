@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BMI Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url("{% static 'DiabetesPrediction/images/second image.jpg' %}");
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .bmi-box {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 400px;
+      text-align: center;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .bmi-box h1 {
+      color: #0086b3;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"], button {
+      width: 80%;
+      padding: 10px;
+      margin: 10px auto;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #4dc3ff;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0086b3;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: white;
+      background-color: #0086b3;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="bmi-box">
+    <h1>BMI Calculator</h1>
+    <input type="text" id="height" placeholder="Enter height in cm">
+    <input type="text" id="weight" placeholder="Enter weight in kg">
+    <button onclick="calculateBMI()">Calculate</button>
+    <div class="result" id="resultText"></div>
+
+    <a href="{% url 'predict' %}">Go to Prediction Page</a>
+  </div>
+
+  <script>
+    function calculateBMI() {
+      const height = parseFloat(document.getElementById("height").value) / 100;
+      const weight = parseFloat(document.getElementById("weight").value);
+      const result = document.getElementById("resultText");
+
+      if (!height || !weight || height <= 0 || weight <= 0) {
+        result.innerText = "Please enter valid height and weight.";
+        return;
+      }
+
+      const bmi = (weight / (height * height)).toFixed(2);
+      result.innerText = `Your BMI is: ${bmi}`;
+    }
+  </script>
+</body>
+</html>

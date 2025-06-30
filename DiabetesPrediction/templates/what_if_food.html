@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🍽️ What-If Food Planner</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url("{% static 'DiabetesPrediction/images/second image.jpg' %}");
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      color: #333;
+      min-height: 100vh;
+      backdrop-filter: blur(4px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    h2 {
+      color: #007a6b;
+      font-size: 2.2em;
+      text-align: center;
+      margin-bottom: 24px;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+    }
+    .planner-box {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 24px;
+      width: 100%;
+      max-width: 450px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .planner-box:hover {
+      transform: scale(1.02);
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1.1em;
+      margin: 10px 0;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #0086b3, #00b3a4);
+      color: #fff;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background: linear-gradient(135deg, #005f7a, #00867a);
+      transform: scale(1.04);
+    }
+    .result {
+      margin-top: 20px;
+      padding: 12px;
+      background: #e0f7f4;
+      border-radius: 8px;
+      color: #007a6b;
+      font-weight: 500;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .back-btn {
+      display: inline-block;
+      padding: 14px 28px;
+      margin-top: 24px;
+      background: linear-gradient(135deg, #0086b3, #00b3a4);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: all 0.3s;
+      font-size: 1.1rem;
+    }
+    .back-btn:hover {
+      background: linear-gradient(135deg, #005f7a, #00867a);
+      transform: scale(1.05) translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🍽️ What-If Food Planner</h2>
+  <div class="planner-box">
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" name="food_name" placeholder="e.g. pizza 🍕" required>
+      <input type="text" name="portion" placeholder="Portion size (e.g. 2 slices)" required>
+      <button type="submit">Test Impact ⚡</button>
+    </form>
+
+    {% if impact %}
+      <div class="result">
+        <p><strong>Result for {{ food_name }} ({{ portion }})</strong></p>
+        <p>{{ impact }}</p>
+        {% if alternative %}
+          <p>💡 Healthier alternative: {{ alternative }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  <a href="{% url 'puzzle' %}" class="back-btn">🧩 Go to Puzzle</a>
+
+
+
+</body>
+</html>

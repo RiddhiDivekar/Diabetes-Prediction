@@ -1,0 +1,119 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Predict</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background-image: url("{% static 'DiabetesPrediction/images/second image.jpg' %}");
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .main {
+      width: 400px; /* reduced from 550px */
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 30px; /* reduced padding */
+      text-align: center;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      color: #0086b3;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 15px; /* reduced spacing */
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .form-group input[type="text"] {
+      width: 80%;
+      padding: 6px 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 13px;
+    }
+
+    input[type="submit"] {
+      background-color: #4dc3ff;
+      border: none;
+      color: white;
+      padding: 9px 18px;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0086b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main">
+    <h1>Enter the following information:</h1>
+    <form action="result">
+      <div class="form-group">
+        <label>Pregnancies:</label>
+        <input type="text" name="n1">
+      </div>
+      <div class="form-group">
+        <label>Glucose:</label>
+        <input type="text" name="n2">
+      </div>
+      <div class="form-group">
+        <label>Blood Pressure:</label>
+        <input type="text" name="n3">
+      </div>
+      <div class="form-group">
+        <label>Skin Thickness:</label>
+        <input type="text" name="n4">
+      </div>
+      <div class="form-group">
+        <label>Insulin:</label>
+        <input type="text" name="n5">
+      </div>
+      <div class="form-group">
+        <label>BMI:</label>
+        <input type="text" name="n6">
+      </div>
+      <div class="form-group">
+        <label>Diabetes Pedigree Function:</label>
+        <input type="text" name="n7">
+      </div>
+      <div class="form-group">
+        <label>Age:</label>
+        <input type="text" name="n8">
+      </div>
+      <input type="submit" value="Predict Result">
+    </form>
+  </div>
+
+</body>
+</html>

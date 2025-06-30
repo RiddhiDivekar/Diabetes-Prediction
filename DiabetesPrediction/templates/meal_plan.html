@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Your Personalized Meal Plan</title>
+<style>
+  body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url("{% static 'DiabetesPrediction/images/second image.jpg' %}");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: #333;
+    min-height: 100vh;
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  h2 {
+    color: #fff;
+    margin: 20px 0;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    font-size: 2.4em;
+    text-align: center;
+  }
+  .meal-wrapper {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 20px 24px;
+    margin: 16px;
+    max-width: 550px;
+    width: 100%;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+  }
+  .meal-wrapper:hover {
+    transform: scale(1.03);
+  }
+  .meal-wrapper h3 {
+    color: #007a6b;
+    font-size: 1.6em;
+    border-bottom: 2px solid #00b3a4;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+  }
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 8px 0;
+  }
+  ul li {
+    padding: 4px 0;
+    font-size: 1.1em;
+  }
+  a.cta-btn {
+    padding: 14px 28px;
+    margin: 40px auto;
+    background: linear-gradient(135deg, #0086b3, #00b3a4);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1em;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    text-align: center;
+    display: inline-block;
+  }
+  a.cta-btn:hover {
+    background: linear-gradient(135deg, #005f7a, #00867a);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+</style>
+</head>
+<body>
+
+  <h2>🍽️ Your Personalized Meal Plan</h2>
+
+  <!-- Morning Breakfast -->
+  <div class="meal-wrapper">
+    <h3>🌞 Morning Breakfast</h3>
+    <ul>
+      <li>🥣 Warm oatmeal with almonds and berries</li>
+      <li>🥛 Glass of skimmed milk or almond milk</li>
+      <li>🍏 A small apple or pear</li>
+    </ul>
+  </div>
+
+  <!-- Lunch -->
+  <div class="meal-wrapper">
+    <h3>🥗 Lunch</h3>
+    <ul>
+      <li>🍚 1 cup brown rice with steamed veggies</li>
+      <li>🍗 Grilled chicken breast or tofu</li>
+      <li>🥕 Side salad with olive oil & lemon</li>
+    </ul>
+  </div>
+
+  <!-- Evening Snack -->
+  <div class="meal-wrapper">
+    <h3>🍵 Evening Snack</h3>
+    <ul>
+      <li>☕ Green or herbal tea</li>
+      <li>🥜 A small handful of nuts & seeds</li>
+      <li>🍊 Orange slices or cucumber</li>
+    </ul>
+  </div>
+
+  <!-- Dinner -->
+  <div class="meal-wrapper">
+    <h3>🍛 Dinner</h3>
+    <ul>
+      <li>🥕 2 whole-wheat chapatis or millets roti</li>
+      <li>🥬 Lentil soup with spinach</li>
+      <li>🍅 Light vegetable stir-fry</li>
+    </ul>
+  </div>
+
+  <!-- Attractive CTA Button -->
+  <a href="{% url 'what_if_food' %}" class="cta-btn">🍽️ What-If Food Planner →</a>
+
+</body>
+</html>

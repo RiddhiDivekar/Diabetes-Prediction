@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>🧩 Diabetes Puzzle Time</title>
+<style>
+  body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url("{% static 'DiabetesPrediction/images/second image.jpg' %}");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: #333;
+    min-height: 100vh;
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  h2 {
+    color: #007a6b;
+    font-size: 2.2em;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .scoreboard {
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    color: #007a6b;
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  .puzzle-box {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 24px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    text-align: center;
+  }
+  .question {
+    font-size: 1.3em;
+    margin-bottom: 16px;
+    color: #005f7a;
+  }
+  .options button {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #00b3a4;
+    color: white;
+    margin: 8px;
+    width: 80%;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .options button:hover {
+    background: #00867a;
+  }
+  .result {
+    margin-top: 20px;
+    padding: 12px;
+    background: #e0f7f4;
+    border-radius: 8px;
+    color: #007a6b;
+    font-weight: 500;
+  }
+  .back-btn {
+    display: inline-block;
+    padding: 14px 28px;
+    margin-top: 24px;
+    background: linear-gradient(135deg, #0086b3, #00b3a4);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: all 0.3s;
+    font-size: 1.1rem;
+  }
+  .back-btn:hover {
+    background: linear-gradient(135deg, #005f7a, #00867a);
+    transform: scale(1.05) translateY(-2px);
+  }
+  .reward {
+    margin-top: 10px;
+    color: #f39c12;
+    font-size: 1.5em;
+  }
+</style>
+</head>
+<body>
+
+<h2>🧩 Diabetes Trivia Puzzle</h2>
+<div class="scoreboard">
+  🏅 Score: <span id="score">{{ score }}</span>
+  <span id="reward"></span>
+</div>
+
+<div class="puzzle-box">
+  <div class="question">{{ puzzle.question }}</div>
+  <div class="options">
+    {% for option in puzzle.options %}
+      <button onclick="checkAnswer('{{ option }}')">{{ option }}</button>
+    {% endfor %}
+  </div>
+  <div id="result" class="result"></div>
+</div>
+
+<a href="{% url 'puzzle' %}" class="back-btn">🎲 Next Puzzle</a>
+<a href="{% url 'home' %}" class="back-btn">🏠 Back to Home</a>
+
+<script>
+  const correctAnswer = "{{ puzzle.correct }}";
+  const rewardEl = document.getElementById('reward');
+
+  async function checkAnswer(selected) {
+    const result = document.getElementById('result');
+
+    if (selected === correctAnswer) {
+      result.textContent = "🎉 Correct!";
+      result.style.color = "#007a6b";
+
+      // Send POST request to update score
+      const response = await fetch("{% url 'update_score' %}", {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": "{{ csrf_token }}",
+          "Content-Type": "application/json"
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        document.getElementById('score').textContent = data.new_score;
+
+        // Show reward every 5 points
+        if (data.new_score % 5 === 0) {
+          rewardEl.textContent = "🏆🏆 Super star!";
+        } else {
+          rewardEl.textContent = "";
+        }
+      }
+    } else {
+      result.textContent = "❌ Nope! Try again.";
+      result.style.color = "#e74c3c";
+    }
+  }
+</script>
+
+</body>
+</html>

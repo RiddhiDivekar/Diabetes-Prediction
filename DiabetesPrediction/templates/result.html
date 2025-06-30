@@ -1,0 +1,220 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Result</title>
+  <style>
+    body {
+      background-image: url("{% static 'DiabetesPrediction/images/second image.jpg' %}");
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .main {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      width: 500px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      color: #0086b3;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #333;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      margin-top: 20px;
+      color: #0086b3;
+      font-size: 20px;
+    }
+
+    ul {
+      text-align: left;
+      margin-top: 10px;
+      color: #444;
+    }
+
+    li {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .button-container {
+      position: absolute;
+      bottom: 40px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .button-container a {
+      display: inline-block;
+      padding: 12px 25px;
+      background-color: #0086b3;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    .button-container a:hover {
+      background-color: #005f7a;
+    }
+
+    /* Floating Chatbot Icon */
+    .chatbot-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 65px;
+      height: 65px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      z-index: 1001;
+    }
+
+    .chatbot-icon:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .chatbot-icon img {
+      width: 38px;
+      height: 38px;
+    }
+
+    .chatbot-box {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 300px;
+      background-color: #fdfdfd;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      display: none;
+      z-index: 1000;
+    }
+
+    .chatbot-box h3 {
+      margin-top: 0;
+      color: #0086b3;
+      font-size: 18px;
+    }
+
+    .chatbot-box input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .chatbot-box button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 8px;
+      background-color: #4dc3ff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .chatbot-box p {
+      margin-top: 10px;
+      color: #444;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main">
+    <h1>Diabetes Test Result:</h1>
+    <h2>{{ result2 }}</h2>
+
+    {% if recommendations %}
+    <h3>Diet & Lifestyle Recommendations:</h3>
+    <ul>
+      {% for rec in recommendations %}
+        <li>{{ rec }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+
+  <!-- Buttons at bottom -->
+  <div class="button-container">
+    <a href="{% url 'chart' %}">📊 Go to Charts Section</a>
+  </div>
+
+  <!-- Chatbot Icon -->
+  <div class="chatbot-icon" onclick="toggleChatbot()">
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Chatbot Icon" />
+  </div>
+
+  <!-- Chatbot Box -->
+  <div class="chatbot-box" id="chatbotBox">
+    <h3>🤖 Ask your DiaBuddy</h3>
+    <input type="text" id="userInput" placeholder="Ask a question..." />
+    <button onclick="getChatbotResponse()">Ask</button>
+    <p id="botResponse"></p>
+  </div>
+
+  <script>
+    function toggleChatbot() {
+      const box = document.getElementById('chatbotBox');
+      box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+    }
+
+    function getChatbotResponse() {
+      const input = document.getElementById('userInput').value.toLowerCase();
+      let response = "";
+
+      if (input.includes("what is diabetes")) {
+        response = "Diabetes affects how your body processes blood sugar.";
+      } else if (input.includes("reduce sugar") || input.includes("sugar intake")) {
+        response = "Limit processed foods, sugary drinks, and monitor labels.";
+      } else if (input.includes("symptoms")) {
+        response = "Symptoms include frequent urination, thirst, fatigue, and blurred vision.";
+      } else if (input.includes("treatment")) {
+        response = "Treatment includes healthy eating, physical activity, and medication.";
+      } else {
+        response = "Try asking about diabetes, symptoms, treatment, or sugar intake!";
+      }
+
+      document.getElementById('botResponse').innerText = response;
+    }
+  </script>
+
+</body>
+</html>

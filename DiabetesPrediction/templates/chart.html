@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Prediction Charts</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url("{% static 'DiabetesPrediction/images/second image.jpg' %}");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: #333;
+    min-height: 100vh;
+    backdrop-filter: blur(3px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h2 {
+    color: #fff;
+    margin: 20px 0;
+    text-shadow: 2px 2px 6px #000;
+    font-size: 2.2em;
+  }
+
+  .chart-wrapper {
+    background: rgba(255, 255, 255, 0.95); /* white background */
+    border-radius: 20px;
+    padding: 24px;
+    margin: 15px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+    width: 100%;
+    max-width: 450px;
+  }
+
+  .chart-wrapper:hover {
+    transform: scale(1.03);
+  }
+
+  canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  a {
+    padding: 12px 24px;
+    margin-top: 40px;
+    background: linear-gradient(135deg, #0086b3, #00b3a4);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: background 0.3s;
+  }
+
+  a:hover {
+    background: linear-gradient(135deg, #005f7a, #00867a);
+  }
+</style>
+</head>
+<body>
+
+  <h2>📊 Your Diabetes Prediction Charts</h2>
+
+  <!-- Pie Chart -->
+  <div class="chart-wrapper">
+    <canvas id="pieChart"></canvas>
+  </div>
+
+  <!-- Meal Plan Button -->
+  <a href="{% url 'meal_plan' %}">🍽️ View Personalized Meal Plan</a>
+
+  <script>
+    const pieData = {
+      labels: ['Positive', 'Negative'],
+      datasets: [{
+        data: [{{ chart_data.Positive|default:0 }}, {{ chart_data.Negative|default:0 }}],
+        backgroundColor: ['#ff6384', '#36a2eb'],
+        borderColor: '#fff',
+        borderWidth: 2
+      }]
+    };
+    new Chart(document.getElementById('pieChart'), {
+      type: 'pie',
+      data: pieData,
+      options: {
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: '#333', font: { size: 14 } }
+          }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
