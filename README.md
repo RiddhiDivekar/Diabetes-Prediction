@@ -45,16 +45,16 @@ This project combines **ML algorithms**, a **Django-based web interface**, and a
 
 ## 🚀 How to Run the Project
 
-# Step 1: Clone the repo
+## Step 1: Clone the repo
 git clone https://github.com/RiddhiDivekar/Diabetes-Prediction.git
 
-# Step 2: Navigate into project folder
+## Step 2: Navigate into project folder
 cd Diabetes-Prediction
 
-# Step 3: Install dependencies
+## Step 3: Install dependencies
 pip install -r requirements.txt
 
-# Step 4: Run the Django server
+## Step 4: Run the Django server
 python manage.py runserver
 Access the project at: http://127.0.0.1:8000/
 
